@@ -24,7 +24,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/SenseNet/sn-authentication-jwt.git"
-  },  
+  },
   "keywords": [
     "sensenet",
     "ecm",
@@ -35,12 +35,12 @@
   ],
   "publishConfig": {
     "access": "public"
-  },  
+  },
   "author": "Sense/Net <snteam@sensenet.com> (http://sensenet.com/)",
   "license": "GPL-2.0",
   "bugs": {
     "url": "https://github.com/SenseNet/sn-authentication-jwt/issues"
-  },  
+  },
   "nyc": {
     "exclude": [
       "temp/test/**/*.*",
@@ -58,7 +58,7 @@
   },
   "homepage": "https://sensenet.com",
   "dependencies": {
-    "@sensenet/client-core": "^1.0.0-development.1"
+    "@sensenet/client-core": "^1.0.0-development.2"
   },
   "devDependencies": {
     "@types/chai": "4.0.10",

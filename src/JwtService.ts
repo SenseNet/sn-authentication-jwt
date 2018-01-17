@@ -2,13 +2,13 @@
  * @module Authentication
  */ /** */
 
-import { ConstantContent, IAuthenticationService, Repository } from "@sensenet/client-core";
+import { ConstantContent, IAuthenticationService, LoginState, Repository } from "@sensenet/client-core";
 import { ObservableValue, PathHelper } from "@sensenet/client-utils";
 import { User } from "@sensenet/default-content-types";
+import { Query } from "@sensenet/query";
 import { ILoginResponse } from "./ILoginResponse";
 import { IOauthProvider } from "./IOauthProvider";
 import { IRefreshResponse } from "./IRefreshResponse";
-import { LoginState } from "./LoginState";
 import { Token } from "./Token";
 import { TokenPersist } from "./TokenPersist";
 import { TokenStore } from "./TokenStore";
@@ -24,7 +24,8 @@ export class JwtService implements IAuthenticationService {
      * Disposes the service
      */
     public dispose() {
-        /** */
+        this.state.dispose();
+        this.currentUser.dispose();
     }
 
     /**
@@ -93,11 +94,28 @@ export class JwtService implements IAuthenticationService {
         return true;
     }
 
+    private async updateUser() {
+        const lastUser = this.currentUser.getValue();
+        if (this.state.getValue() === LoginState.Unauthenticated) {
+            this.currentUser.setValue(ConstantContent.VISITOR_USER);
+        } else if (this.state.getValue() === LoginState.Authenticated && this.tokenStore.AccessToken.Username !== `${lastUser.Domain}\\${lastUser.LoginName}`) {
+            const [domain, loginName] = this.tokenStore.AccessToken.Username.split("\\");
+            const response = await this.repository.loadCollection({
+                path: "Root",
+                oDataOptions: {
+                    query: new Query((q) => q.typeIs<User>(User).and.equals("Domain", domain).and.equals("LoginName", loginName)).toString(),
+                },
+            });
+            this.currentUser.setValue(response.d.results[0]);
+        }
+    }
+
     /**
      * @param {BaseRepository} _repository the Repository reference for the Authentication. The service will read its configuration and use its HttpProvider
      * @constructs JwtService
      */
     constructor(protected readonly repository: Repository) {
+        this.state.subscribe((state) => {this.updateUser(); });
         this.checkForUpdate();
     }
 
@@ -170,7 +188,6 @@ export class JwtService implements IAuthenticationService {
         this.tokenStore.AccessToken = Token.CreateEmpty();
         this.tokenStore.RefreshToken = Token.CreateEmpty();
         this.state.setValue(LoginState.Unauthenticated);
-        this.currentUser.setValue(ConstantContent.VISITOR_USER);
         await this.repository.fetch(PathHelper.joinPaths(this.repository.configuration.repositoryUrl, "sn-token/logout"), {
             method: "POST",
             cache: "no-cache",
