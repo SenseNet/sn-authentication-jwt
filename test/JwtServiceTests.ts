@@ -1,9 +1,8 @@
-import { Repository } from "@sensenet/client-core";
+import { LoginState, Repository } from "@sensenet/client-core";
 import { expect } from "chai";
+import { JwtService } from "../src";
 import { ILoginResponse } from "../src/ILoginResponse";
 import { IRefreshResponse } from "../src/IRefreshResponse";
-import { JwtService } from "../src/JwtService";
-import { LoginState } from "../src/LoginState";
 import { MockTokenFactory } from "./MockTokenFactory";
 
 // tslint:disable:completed-docs
