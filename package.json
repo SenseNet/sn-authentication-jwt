@@ -1,6 +1,6 @@
 {
   "name": "@sensenet/authentication-jwt",
-  "version": "1.0.0-development.2",
+  "version": "1.0.0-development.3",
   "description": "JWT Authentication service for sensenet ECM",
   "main": "dist/index.js",
   "files": [
@@ -77,5 +77,5 @@
       "path": "sensenet-kfi-cz-conventional-changelog"
     }
   },
-  "typings": "./dist/src/index.d.ts"
+  "typings": "./dist/index.d.ts"
 }
