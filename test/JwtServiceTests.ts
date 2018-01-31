@@ -26,7 +26,14 @@ export const jwtServiceTests = describe("JwtService", () => {
         expect(jwtService2).to.be.instanceof(JwtService);
     });
 
-    it("can be disposed", () => {
+    it("can be disposed with oauth providers", (done: MochaDone) => {
+        jwtService.oauthProviders.add({
+            login: null as any,
+            getToken: null as any,
+            dispose: () => {
+                done();
+            },
+        });
         jwtService.dispose();
     });
 

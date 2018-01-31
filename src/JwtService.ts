@@ -26,6 +26,9 @@ export class JwtService implements IAuthenticationService {
     public dispose() {
         this.state.dispose();
         this.currentUser.dispose();
+        for (const provider of this.oauthProviders) {
+            provider.dispose();
+        }
     }
 
     /**
@@ -114,7 +117,8 @@ export class JwtService implements IAuthenticationService {
      * @param {BaseRepository} _repository the Repository reference for the Authentication. The service will read its configuration and use its HttpProvider
      * @constructs JwtService
      */
-    constructor(protected readonly repository: Repository) {
+    constructor(public readonly repository: Repository) {
+        this.repository.authentication = this;
         this.state.subscribe((state) => {this.updateUser(); });
         this.checkForUpdate();
     }
