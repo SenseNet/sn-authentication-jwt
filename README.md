@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/github/license/SenseNet/sn-authentication-jwt.svg?style=flat)](https://github.com/sn-authentication-jwt/LICENSE.txt)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat)](http://commitizen.github.io/cz-cli/)
 
-This NPM package contains a client-side JWT authentication service implementation for [sensenet ECM](https://github.com/SenseNet/sensenet).
+This NPM package contains a client-side JWT authentication service implementation for [sensenet](https://github.com/SenseNet/sensenet).
 
 ### Setup and usage
 You can use JWT authentication with a [preconfigured](https://community.sensenet.com/docs/web-token-authentication/) sensenet >7.0.0 backend.
