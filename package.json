@@ -58,6 +58,9 @@
     ]
   },
   "homepage": "https://sensenet.com",
+  "dependencies": {
+    "@sensenet/client-core": "^1.2.0"
+  },
   "peerDependencies": {
     "@sensenet/client-core": "^1.2.0"
   },
