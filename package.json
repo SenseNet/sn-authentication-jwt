@@ -1,6 +1,6 @@
 {
   "name": "@sensenet/authentication-jwt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JWT Authentication service for sensenet ECM",
   "main": "dist/index.js",
   "files": [
