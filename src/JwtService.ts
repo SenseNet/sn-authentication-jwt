@@ -120,7 +120,9 @@ export class JwtService implements IAuthenticationService {
      */
     constructor(public readonly repository: Repository, private readonly userLoadOptions: IODataParams<User> = { select: "all" }, private readonly latencyCompensationMs: number = 5000) {
         this.repository.authentication = this;
-        this.state.subscribe((state) => { this.updateUser(); });
+        this.state.subscribe((state) => {
+            this.updateUser();
+        });
         this.checkForUpdate();
     }
 
@@ -132,10 +134,8 @@ export class JwtService implements IAuthenticationService {
         this.tokenStore.AccessToken = Token.FromHeadAndPayload(response.access);
         this.tokenStore.RefreshToken = Token.FromHeadAndPayload(response.refresh);
         if (this.tokenStore.AccessToken.IsValid(true)) {
-            this.state.setValue(LoginState.Authenticated);
             return true;
         }
-        this.state.setValue(LoginState.Unauthenticated);
         return false;
     }
 
@@ -180,6 +180,7 @@ export class JwtService implements IAuthenticationService {
             const json: ILoginResponse = await response.json();
             const result = this.handleAuthenticationResponse(json);
             await this.tokenStore.AccessToken.AwaitNotBeforeTime();
+            this.state.setValue(result ? LoginState.Authenticated : LoginState.Unauthenticated);
             return result;
         } else {
             this.state.setValue(LoginState.Unauthenticated);
