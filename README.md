@@ -1,5 +1,9 @@
 # sn-authentication-jwt
 
+------
+### This package is not under active development. You can find our latest packages in the [sensenset/sn-client](https://github.com/sensenet/sn-client) monorepo.
+------
+
 [![Gitter chat](https://img.shields.io/gitter/room/SenseNet/SN7ClientAPI.svg?style=flat)](https://gitter.im/SenseNet/SN7ClientAPI)
 [![Build Status](https://travis-ci.org/SenseNet/sn-authentication-jwt.svg?branch=master)](https://travis-ci.org/SenseNet/sn-authentication-jwt)
 [![codecov](https://codecov.io/gh/SenseNet/sn-authentication-jwt/branch/master/graph/badge.svg)](https://codecov.io/gh/SenseNet/sn-authentication-jwt)
